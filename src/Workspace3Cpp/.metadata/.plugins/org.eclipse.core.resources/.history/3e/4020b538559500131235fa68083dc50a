@@ -1,0 +1,88 @@
+#include <Solving.h>
+
+template <typename T>
+auto TypeToStr(const T& value) -> std::string
+{
+	std::ostringstream oss;
+
+	try
+	{
+		oss << value;
+	}
+	catch(...)
+	{
+		oss << "Error to convert in C++ method";
+	}
+	return oss.str();
+}
+
+auto MakeClear = []()
+{
+	std::copy(MyStr.begin(), MyStr.end(), "");
+};
+
+inline auto Clear() -> void
+{
+	MyStr = "";
+	//MyStr("");
+}
+
+inline auto MakeAnswer(double x) -> void
+{
+	MyStr = TypeToStr<double>(x);
+}
+
+inline auto MakeAnswer(const std::string& tmp) -> void
+{
+	MyStr = tmp;
+}
+
+inline auto MakeAnswer(double x1, double x2) -> void
+{
+	MyStr = TypeToStr<double>(x1) + "   " + TypeToStr<double>(x2);
+}
+
+JNIEXPORT jstring Java_test_example_solvingequation_SolvingEquation_Solving(JNIEnv * env, jobject obj, jdouble a, jdouble b, jdouble c)
+{
+	//TODO: Use one function to set MyStr
+	//TODO: if b % 2 == 0
+
+	LOGI("Start GetData");
+
+	MakeClear();
+
+	auto x1 = 0.0;
+	auto x2 = 0.0;
+	auto det = 0.0;
+
+	if(a == 0 && b == 0)
+		MakeAnswer("Not a valid equation. Its not a quadratic equation");
+
+	if(a == 0 && b != 0)
+	{
+		x1 = -(c / b);
+		MakeAnswer(x1);
+	}
+
+	det = b * b - 4 * a * c;
+	if (det >= 0)
+	{
+		if(det == 0)
+		{
+			x1 = -(b / (2 * a));
+			MakeAnswer(x1);
+		}
+		else //det > 0
+		{
+			x1 = (-b + sqrt(det)) / (2 * a);
+			x2 = (-b - sqrt(det)) / (2 * a);
+			MakeAnswer(x1, x2);
+		}
+	}
+	else //det < 0
+		MakeAnswer("Not a real root");
+
+	LOGI("End GetData");
+
+	return env->NewStringUTF(MyStr.c_str());
+}

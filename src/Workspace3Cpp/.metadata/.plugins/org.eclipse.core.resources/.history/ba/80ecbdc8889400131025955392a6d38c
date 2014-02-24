@@ -1,0 +1,81 @@
+#include <Solving.h>
+
+void ChangeStr(char* tmp){
+	strcat(MyStr, tmp);
+}
+
+template <typename T>
+void TypeToStr(const T &rhs, char *tmp)
+{
+	sprintf(tmp,"%d", rhs);
+}
+
+void Clear()
+{
+	memset(MyStr, '\0', LEN);
+}
+
+void MakeOneAnswer(double x)
+{
+	char tmp[LEN] = { '\0' };
+	TypeToStr<double>(x, tmp);
+	memcpy(MyStr, tmp, LEN);
+}
+
+void MakeTwoAnswers(double x1, double x2)
+{
+	const int L = (LEN/2) - 1;
+	char tmp1[L] = { '\0' };
+	char tmp2[L] = { '\0' };
+
+	TypeToStr<double>(x1, tmp1);
+	TypeToStr<double>(x2, tmp2);
+
+	char tmp[LEN] = { '\0' };
+	strcat(tmp, "Answer: ");
+	strcat(tmp, tmp1);
+	strcat(tmp, "   ");
+	strcat(tmp, tmp2);
+	memcpy(MyStr, tmp, LEN);
+}
+
+JNIEXPORT jstring Java_test_example_solvingequation_MainActivity_Solving(JNIEnv * env, jobject obj, jdouble a, jdouble b, jdouble c)
+{
+	//TODO Use one function to set MyStr, f.e. ChangeStr
+
+	LOGI("Start GetData");
+
+	Clear();
+	double x1 = 0.0, x2 = 0.0;
+	double det = 0.0;
+
+	if(a == 0 && b == 0)
+		ChangeStr("Not a valid equation");
+
+	if(a == 0 && b != 0)
+	{
+		double x = -(c / b);
+		MakeOneAnswer(x);
+	}
+
+	det = b * b - 4 * a * c;
+	if (det >= 0)
+	{
+		if(det == 0)
+		{
+			double x = -(b / (2 * a));
+			MakeOneAnswer(x);
+		}
+		else
+		{
+			x1 = (-b + sqrt(det)) / (2 * a);
+			x2 = (-b - sqrt(det)) / (2 * a);
+			MakeTwoAnswers(x1, x2);
+		}
+	}
+	if (det < 0)
+		ChangeStr("Not a real root");
+
+	LOGI("End GetData");
+	return env->NewStringUTF(MyStr);
+}

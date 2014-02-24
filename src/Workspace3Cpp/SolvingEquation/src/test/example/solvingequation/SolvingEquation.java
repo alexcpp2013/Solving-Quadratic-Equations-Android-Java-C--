@@ -1,0 +1,12 @@
+package test.example.solvingequation;
+
+public class SolvingEquation {
+	// Загрузка модуля «AndroidNDK» — нативной библиотеки, в которой реализованы методы.
+	// Название этого модуля задается в файле Android.mk.
+	static {
+		System.loadLibrary("SolvingEquation");
+	}
+	
+	public static native String Solving(double a, double b, double c);
+
+}

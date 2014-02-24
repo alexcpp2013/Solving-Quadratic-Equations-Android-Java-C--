@@ -1,0 +1,13 @@
+1392107228297	Extract method 'getNumber'
+1392108148535	Extract method 'messageShow'
+1392190679247	Encapsulate field 'first'
+1392190712320	Encapsulate field 'second'
+1392190727251	Encapsulate field 'third'
+1392199671464	Rename resource 'Solving'
+1392199783416	Rename resource 'Solving.h'
+1392205180045	Copy compilation unit
+1392205206653	Copy compilation unit
+1392205211466	Delete element
+1392205848553	Delete element
+1392273814407	Extract Method Refactoring
+1392280687342	Rename type 'AndroidNDK'

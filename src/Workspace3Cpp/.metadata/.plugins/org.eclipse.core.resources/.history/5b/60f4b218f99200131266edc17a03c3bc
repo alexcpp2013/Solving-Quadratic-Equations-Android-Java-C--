@@ -1,0 +1,74 @@
+package test.example.solvingequation;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.EditText;
+
+public class MainActivity extends Activity {
+
+	private final double NUMBERDEAFULT = 1.0;
+	
+	private Button btnStart;
+	private EditText eTFirst;
+	private EditText eTSecond;
+	private EditText eTThird;
+	
+	@Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        
+        btnStart = (Button)findViewById(R.id.bStart);
+        eTFirst = (EditText)findViewById(R.id.eTa);
+        eTSecond = (EditText)findViewById(R.id.eTb);
+        eTThird = (EditText)findViewById(R.id.eTc);
+        
+        btnStart.setOnClickListener(new View.OnClickListener(){
+
+        	public void onClick(View v) {
+        		//txtHello.setText("123");
+        		Double first = null;
+            	Double second = null;
+            	Double third = null;
+            	
+        		getNumber(first);
+        		getNumber(second);
+        		getNumber(third);
+        	}
+        	
+        });
+        
+        messageShow();
+    }
+
+	private void messageShow() {
+		AlertDialog.Builder alertDialog;
+		alertDialog = new AlertDialog.Builder(this);
+		alertDialog.setPositiveButton("OK", null);
+		alertDialog.setCancelable(true);
+		alertDialog.setTitle("Debug Message");
+		alertDialog.setMessage("Some Data...");
+		alertDialog.create().show();
+	}
+
+	private void getNumber(Double number) {
+		try{
+            number = Double.parseDouble(eTFirst.getText().toString());
+        } catch (final NumberFormatException e) {
+        	number = NUMBERDEAFULT;
+        }
+	}
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+    
+}

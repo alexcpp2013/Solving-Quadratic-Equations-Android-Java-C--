@@ -1,0 +1,54 @@
+#include <Solving.h>
+
+void ChangeStr(char* tmp){
+	strcat(MyStr, tmp);
+}
+
+template <typename T>
+void TypeToStr(const T &rhs){
+    const int N = 15;
+	char tmp[N];
+	sprintf(MyStr,"%d", rhs);
+}
+
+void Clear()
+{
+	memcpy(MyStr, "\0", LEN);
+}
+
+JNIEXPORT jstring Java_ru_suvitruf_androidndk_AndroidNDK_Solving(JNIEnv * env, jobject obj, jdouble a, jdouble b, jdouble c)
+{
+	LOGI("Start GetData");
+
+	Clear();
+	double x1 = 0.0, x2 = 0.0;
+	double det = 0.0;
+
+	if(a == 0 && b == 0)
+		ChangeStr("Not a valid equation");
+
+	if(a == 0 && b != 0)
+	{
+		double x = -(c / b);
+		TypeToStr<double>(x);
+	}
+
+	det = b * b - 4 * a * c;
+	if (det >= 0)
+	{
+		if(det == 0)
+		{
+			double x = -(b / (2 * a));
+			TypeToStr<double>(x);
+		}
+		else
+		{
+			;
+		}
+	}
+	if (det < 0)
+		ChangeStr("Not a real root");
+
+	LOGI("End GetData");
+	return env->NewStringUTF(MyStr);
+}

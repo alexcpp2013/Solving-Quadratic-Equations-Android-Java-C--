@@ -1,0 +1,9 @@
+
+**** Build of configuration Default for project SolvingEquation ****
+
+C:\Dev\android\android-ndk-r9c-windows-x86\android-ndk-r9c\ndk-build.cmd all 
+Android NDK: WARNING: APP_PLATFORM android-14 is larger than android:minSdkVersion 8 in ./AndroidManifest.xml    
+[armeabi] Install        : libSolvingEquation.so => libs/armeabi/libSolvingEquation.so
+[armeabi-v7a] Install        : libSolvingEquation.so => libs/armeabi-v7a/libSolvingEquation.so
+
+**** Build Finished ****

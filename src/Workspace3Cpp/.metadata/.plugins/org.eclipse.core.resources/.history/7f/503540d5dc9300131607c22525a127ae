@@ -1,0 +1,27 @@
+/*
+ * Solving.h
+ *
+ *  Created on: 12.02.2014
+ *      Author: a_melnik
+ */
+
+#ifndef SOLVING_H_
+#define SOLVING_H_
+
+#include <def.h>
+#include <jni.h>
+
+char  MyStr[80];
+double a;
+double b;
+double c;
+
+extern "C" {
+	JNIEXPORT jstring Java_ru_suvitruf_androidndk_AndroidNDK_Solving(JNIEnv * env, jobject obj, jdouble a, jdouble b, jdouble c);
+	JNIEXPORT void Java_ru_suvitruf_androidndk_AndroidNDK_SetString(JNIEnv * env, jobject obj, jstring str);
+	JNIEXPORT void Java_ru_suvitruf_androidndk_AndroidNDK_ChangeString(JNIEnv * env, jobject obj);
+	JNIEXPORT jstring Java_ru_suvitruf_androidndk_AndroidNDK_GetString(JNIEnv * env, jobject obj);
+}
+
+
+#endif /* SOLVING_H_ */
